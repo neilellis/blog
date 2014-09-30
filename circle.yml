@@ -1,0 +1,22 @@
+machine:
+  node:
+    version: 0.10.28
+  services:
+    - docker
+
+
+dependencies:
+  cache_directories:
+    - node_modules
+  pre:
+    - npm install -g hexo
+
+test:
+  override:
+    - hexo generate
+
+deployment:
+    production:
+        branch: master
+        commands:
+             - hexo deploy
