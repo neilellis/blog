@@ -86,6 +86,6 @@ exclude_generator:
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: github
-  repo: https://github.com/neilellis/blog.git
+  repo: git@github.com:neilellis/blog.git
   branch: gh_pages
   message: "Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}"
