@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle:
-description:
+title: Neil Ellis
+subtitle: Tech Blog
+description: "Neil Ellis's Tech Blog"
 author: John Doe
-email:
+email: neil@cazcade.com
 language:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
-root: /
+url: https://neilellis.github.io/blog
+root: /blog/
 permalink: :year/:month/:day/:title/
 tag_dir: tags
 archive_dir: archives
@@ -87,5 +87,5 @@ exclude_generator:
 deploy:
   type: github
   repo: "git@github.com:neilellis/blog.git"
-  branch: gh_pages
+  branch: gh-pages
   message: "Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}"
