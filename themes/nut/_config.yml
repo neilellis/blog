@@ -1,21 +1,18 @@
 # Header
 menu:
 - name: Archives
-  path: /archives
+  path: /blog/archives
   logo: archive
 - name: Categories
   path: /categories
   logo: folder
 - name: Tags
-  path: /tags
+  path: /blog/tags
   logo: tags
-- name: Wiki
-  path: /wiki
-  logo: book
 - name: About
-  path: /about
+  path: /blog/about
   logo: user
-rss: /atom.xml
+rss: /blog/atom.xml
 
 # Content
 excerpt_link: Read More
@@ -53,12 +50,12 @@ twitter:
 google_plus:
 
 links:
-- name: Github
-  url: https://github.com/
-  logo: github
-- name: Google+
-  url: https://plus.google.com/
-  logo: google-plus
+- name: Dollar
+  url: https://github.com/cazcade/dollar
+  logo: dollar
+- name: Twitter
+  url: https://twitter.com/neilellis
+  logo: twitter
 
 feed:
   type: atom
