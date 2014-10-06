@@ -125,7 +125,7 @@ Loosely Typed
 
 Under the covers, just like JavaScript, we do have a type system. However it is a runtime type system with few restrictions. At compile time everything implements `var` - at runtime some operations will not be allowed.
 
-*It is* possible for Dollar to support typing of `var`, however experience of this showed it added a lot of complexity back even with type inference.
+*It is* possible for Dollar to support typing of `var`, however experience of this showed it added a lot of complexity back, even with type inference.
 
 
 For Real Applications
@@ -143,7 +143,7 @@ Dollar is designed for production, it is designed for code you are going to have
 
 Characteristics
 ===============
-
+npm
 > "The secret of success is to be like a duck – smooth and unruffled on top, but paddling furiously underneath." - Anon
 
 * Simple - Dollar does do not expose unnecessary complexity to the programmer, we keep it hidden.
