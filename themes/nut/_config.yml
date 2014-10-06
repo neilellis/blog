@@ -3,16 +3,16 @@ menu:
 - name: Archives
   path: /blog/archives
   logo: archive
-- name: Categories
-  path: /categories
-  logo: folder
+#- name: Categories
+#  path: /categories
+#  logo: folder
 - name: Tags
   path: /blog/tags
   logo: tags
-- name: About
-  path: /blog/about
-  logo: user
-rss: /blog/atom.xml
+#- name: About
+#  path: /blog/about
+#  logo: user
+#rss: /blog/atom.xml
 
 # Content
 excerpt_link: Read More
@@ -57,10 +57,10 @@ links:
   url: https://twitter.com/neilellis
   logo: twitter
 
-feed:
-  type: atom
-  path: atom.xml
-  limit: 20
+#feed:
+#  type: atom
+#  path: atom.xml
+#  limit: 20
 
 sitemap:
   path: sitemap.xml
