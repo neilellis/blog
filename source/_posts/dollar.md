@@ -30,7 +30,7 @@ You're probably wondering about `var profile` in the code above. `var` is the in
 </div>
 
 
-And then we can query that JSON using Dollar, in much the same way you woukd in jQuery.
+And then we can query that JSON using Dollar, in much the same way you would in jQuery.
 
 ``` Java
 String name = profile.$("name").$$();
@@ -43,20 +43,21 @@ profile.$("$['age']/11").$int()
 profile.$("$.gender").$()
 ```
 
-We can create our objects from JSON Strings
+We can also create our objects from JSON Strings ...
 ``` Java
 $("{\"name\":\"Dave\"}").$("name").$$()
 ```
 
+Lists ...
 
 ``` Java
-//Work with lists of data
 list = $list("Neil", "Dimple", "Charlie");
 assertEquals(list, $list("Neil").add("Dimple").add("Charlie"));
 ```
 
+Or maps ...
+
 ``` Java
-//Or Maps
 Map map = new HashMap();
 map.put("foo", "bar");
 Map submap = new HashMap();
@@ -64,10 +65,42 @@ submap.put("thing", 1);
 map.put("sub", submap);
 assertEquals(1, $(map).$("sub").$map().get("thing"));
 ```
+
+Dollar has built in support for being a webserver (using [Spark](http://www.sparkjava.com/)):
+
 ``` Java
 //Serve up the request headers as a JSON object under the /headers URL
 $GET("/headers", (context) -> context.headers());
+```
 
+And also supports queues:
+
+
+``` Java
+profile.push("test.profile");
+var deser = profile.pop("test.profile", 10 * 1000);
+```
+
+... persistence ...
+
+``` Java
+assertTrue(profile.save("test.profile.set").equals(profile));
+var deser = profile.load("test.profile.set");
+Assert.assertEquals(deser.$$(), profile.$$());
+```
+
+... and pub/sub
+
+``` Java
+final int[] received = {0};
+Sub sub = $sub((message) -> {
+    received[0]++;
+}, "test.pub");
+sub.await();
+profile.pub("test.pub");
+Thread.sleep(100);
+sub.cancel();
+assertEquals(1, received[0]);
 ```
 
 JSON Friendly
