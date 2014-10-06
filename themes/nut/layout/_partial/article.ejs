@@ -23,13 +23,15 @@
           <%- post_home(post.content) %>
         <% } %>
         <footer class="article-footer">
-          <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data_title="<%- post.title %>"
-          data_summary="<%- post_summary(strip_html(post.content), 160) %>" class="article-share-link">Share</a>
+
+
           <% if (post.comments && config.disqus_shortname){ %>
             <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
           <% } %>
           <%- partial('post/category') %>
           <%- partial('post/tag') %>
+            <div style="margin-top:4px;margin-left:20px;text-align:center;" class="addthis_sharing_toolbox" data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%- post.title %>"
+                  data-summary="<%- post_summary(strip_html(post.content), 160) %>" class="article-share-link"></div>
         </footer>
       <% } else if (is_wiki()){ %>
         <%- post.content %>
@@ -39,6 +41,9 @@
     </div>
   </div>
 </article>
+
+
+
 <% if (!index && post.comments && config.disqus_shortname && comment){ %>
 <section id="comments">
   <div id="disqus_thread">

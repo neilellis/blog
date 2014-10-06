@@ -2,14 +2,22 @@ title: Introducing Dollar
 tags:
     - dollar
     - java
+    - spark
+    - redis
+    - json
+    - dynamic
 ---
 
 I'm currently working on a new library called [Dollar](http://github.com/cazcade/dollar) and I'd like to share some thoughts about it. It is pre-alpha software which means it's really in a prototyping state and the interfaces are not fixed yet.
 
 If you like the ease of JavaScript, Ruby, Groovy etc. but also enjoy being able to work within the Java language then Dollar is for you. You can write typesafe code and then drop into typeless Dollar code whenever you need to. Dollar is both an alternative paradigm and a complementary resource.
 
+<div class="alert alert-danger" role="alert">Everything you see in this blogpost is 100% Java, no matter what it might look like at first glance. I guarantee it's all perfectly valid Java.</div>
 
-So let's create some JSON in Java
+Show me the code!
+=================
+
+So let's create some JSON in Java:
 
 ``` Java
 var profile = $(
@@ -103,19 +111,35 @@ sub.cancel();
 assertEquals(1, received[0]);
 ```
 
-JSON Friendly
+<!-- more -->
+
+
+It's JSON Friendly
+==================
+
+Dollar can work with potentially any loosely typed data format, but the core features of dollar revolve around a JSON centric world view. This means working with JSON as you can see in the above example is very easy indeed.
+
+
+Loosely Typed
 =============
 
-Dollar can work with potentially any data format but the core features of dollar revolve around a JSON centric world view. This means working with JSON as you can see in the above example is very easy indeed.
+Under the covers, just like JavaScript, we do have a type system. However it is a runtime type system with few restrictions. At compile time everything implements `var` - at runtime some operations will not be allowed.
 
-
-<!-- more -->
+*It is* possible for us to support typing of `var`, however experience of this showed it added a lot of complexity back even with type inference.
 
 
 For Real Applications
 =====================
 
-Dollar is designed for production, it is designed for code you are going to have to fix, debug and monitor. Every library and language has it's sweet spot. Dollar's sweetspot is working with schema-less data in a production environment. It is not designed for high performance systems (there is a 99.9% chance your project isn't a high performance system) but there is no reason to expect it to be slow either. Where possible the code has been written with JVM optimization in mind.
+Dollar is designed for production, it is designed for code you are going to have to fix, debug and monitor. Every library and language has it's sweet spot. Dollar's sweet spot is working with schema-less data in a production environment. It is not designed for high performance systems (there is a 99.9% chance your project isn't a high performance system) but there is no reason to expect it to be slow either. Where possible the code has been written with JVM optimization in mind.
+
+``` Java Dump the JVM wide system metrics, analytics etc.
+    $dump();
+```
+
+``` Java Dump the current threads system metrics, analytics etc.
+    $dumpThread();
+```
 
 Characteristics
 ===============
