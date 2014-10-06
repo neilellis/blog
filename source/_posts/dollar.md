@@ -97,7 +97,7 @@ var deser = profile.load("test.profile.set");
 Assert.assertEquals(deser.$$(), profile.$$());
 ```
 
-... and pub/sub
+... and pub/sub.
 
 ``` Java
 final int[] received = {0};
@@ -117,7 +117,7 @@ assertEquals(1, received[0]);
 It's JSON Friendly
 ==================
 
-Dollar can work with potentially any loosely typed data format, but the core features of dollar revolve around a JSON centric world view. This means working with JSON as you can see in the above example is very easy indeed.
+Dollar can work with potentially any loosely typed data format, but the core features of Dollar revolve around a JSON centric world view. This means working with JSON as you can see in the above example is very easy indeed.
 
 
 Loosely Typed
@@ -125,7 +125,7 @@ Loosely Typed
 
 Under the covers, just like JavaScript, we do have a type system. However it is a runtime type system with few restrictions. At compile time everything implements `var` - at runtime some operations will not be allowed.
 
-*It is* possible for us to support typing of `var`, however experience of this showed it added a lot of complexity back even with type inference.
+*It is* possible for Dollar to support typing of `var`, however experience of this showed it added a lot of complexity back even with type inference.
 
 
 For Real Applications
@@ -144,7 +144,7 @@ Dollar is designed for production, it is designed for code you are going to have
 Characteristics
 ===============
 
-> "The secret of success is to be like a duck – smooth and unruffled on top, but paddling furiously underneath.” - Anon
+> "The secret of success is to be like a duck – smooth and unruffled on top, but paddling furiously underneath." - Anon
 
 * Simple - Dollar does do not expose unnecessary complexity to the programmer, we keep it hidden.
 * Typeless - if you *need* strongly typed code stop reading now. If you're writing Internet-centric and modest-sized software this is unlikely to be the case.
