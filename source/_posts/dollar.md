@@ -111,6 +111,8 @@ sub.cancel();
 assertEquals(1, received[0]);
 ```
 
+Want to give it a spin, why not spin up and play with [Dollar on Terminal.com](https://www.terminal.com/tiny/hMuBxSTEeF)
+
 <!-- more -->
 
 
