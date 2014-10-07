@@ -8,7 +8,7 @@ tags:
     - dynamic
 ---
 
-I'm currently working on a new library called [Dollar](http://github.com/cazcade/dollar) and I'd like to share some thoughts about it. It is pre-alpha software which means it's really in a prototyping state and the interfaces are not fixed yet.
+I'm currently working on a new library called [Dollar](http://github.com/cazcade/dollar) and I'd like to share some thoughts about it. It is **pre-alpha software** which means it's really in a prototyping state and the interfaces are not fixed yet.
 
 If you like the ease of JavaScript, Ruby, Groovy etc. but also enjoy being able to work within the Java language then Dollar is for you. You can write typesafe code and then drop into typeless Dollar code whenever you need to. Dollar is both an alternative paradigm and a complementary resource.
 
@@ -119,7 +119,7 @@ Want to give it a spin, why not spin up and play with [Dollar on Terminal.com](h
 It's JSON Friendly
 ==================
 
-Dollar can work with potentially any loosely typed data format, but the core features of Dollar revolve around a JSON centric world view. This means working with JSON as you can see in the above example is very easy indeed.
+Dollar can work with potentially any loosely typed data format, but the core features of Dollar revolve around a JSON centric world view. This means working with JSON, as you can see in the above examples, is very easy indeed.
 
 
 Loosely Typed
@@ -155,3 +155,10 @@ Characteristics
 * Nullsafe - special null type reduces null pointer exceptions, which can be replaced by an isNull() check.
 * Threadsafe - no shared state, always copy on write. No shared state means avoidance of synchronization primitives, reduces memory leaks and generally leaves you feeling happier. It comes at a cost (object creation) but that cost is an acceptable cost as far as Dollar is concerned.
 
+In Summary
+==========
+
+If you're working with loosely typed data, especially JSON, in a Java environment then consider Dollar as an option for your future projects. In the meantime, I'd love feedback and suggestions.
+
+All the best
+Neil
