@@ -143,13 +143,13 @@ Dollar is designed for production, it is designed for code you are going to have
 
 Characteristics
 ===============
-npm
+
 > "The secret of success is to be like a duck – smooth and unruffled on top, but paddling furiously underneath." - Anon
 
-* Simple - Dollar does do not expose unnecessary complexity to the programmer, we keep it hidden.
+* Simple - Dollar does do not expose unnecessary complexity to the programmer, it keeps it hidden.
 * Typeless - if you *need* strongly typed code stop reading now. If you're writing Internet-centric and modest-sized software this is unlikely to be the case.
-* Synchronous - asynchronous flows are hard to follow and even harder to debug in production. We do not expose asynchronous behaviour, where possible, to the programmer.
+* Synchronous - asynchronous flows are hard to follow and even harder to debug in production. Dollar does not expose asynchronous behaviour, where possible, to the programmer.
 * Metered - key execution's are metered using Coda Hale's metrics library, this makes production monitoring and debugging easier.
-* Nullsafe - Special null type reduces null pointer exceptions, which can be replaced by an isNull() check.
-* Threadsafe - No shared state, always copy on write. No shared state means avoidance of synchronization primitives, reduces memory leaks and generally leaves you feeling happier. It comes at a cost (object creation) but that cost is an acceptable cost as far as Dollar is concerned.
+* Nullsafe - special null type reduces null pointer exceptions, which can be replaced by an isNull() check.
+* Threadsafe - no shared state, always copy on write. No shared state means avoidance of synchronization primitives, reduces memory leaks and generally leaves you feeling happier. It comes at a cost (object creation) but that cost is an acceptable cost as far as Dollar is concerned.
 
