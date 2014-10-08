@@ -8,7 +8,7 @@ tags:
     - dynamic
 ---
 
-I'm currently working on a new library called [Dollar](http://github.com/cazcade/dollar) and I'd like to share some thoughts about it. It is **pre-alpha software** which means it's really in a prototyping state and the interfaces are not fixed yet.
+I'm currently working on a new library called [Dollar](http://github.com/neilellis/dollar) and I'd like to share some thoughts about it. It is **pre-alpha software** which means it's really in a prototyping state and the interfaces are not fixed yet.
 
 If you like the ease of JavaScript, Ruby, Groovy etc. but also enjoy being able to work within the Java language then Dollar is for you. You can write typesafe code and then drop into typeless Dollar code whenever you need to. Dollar is both an alternative paradigm and a complementary resource.
 
