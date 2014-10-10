@@ -158,7 +158,7 @@ Characteristics
 In Summary
 ==========
 
-If you're working with loosely typed data, especially JSON, in a Java environment then consider Dollar as an option for your future projects. In the meantime, I'd love feedback and suggestions.
+If you're working with loosely typed data, especially JSON, in a Java environment then consider [Dollar](http://github.com/neilellis/dollar) as an option for your future projects. In the meantime, I'd love feedback and suggestions.
 
 All the best
 Neil
