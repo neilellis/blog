@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[Neil Ellis]]></title>
+  <subtitle><![CDATA[Tech Blog]]></subtitle>
+  <link href="/blog/atom.xml" rel="self"/>
+  <link href="https://neilellis.github.io/blog/"/>
+  <updated>2014-10-10T15:50:26.903Z</updated>
+  <id>https://neilellis.github.io/blog/</id>
+  
+  <author>
+    <name><![CDATA[Neil Ellis]]></name>
+    <email><![CDATA[neil@cazcade.com]]></email>
+  </author>
+  
+  <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Introducing Dollar]]></title>
+    <link href="https://neilellis.github.io/blog/2014/10/10/dollar/"/>
+    <id>https://neilellis.github.io/blog/2014/10/10/dollar/</id>
+    <published>2014-10-10T15:50:05.000Z</published>
+    <updated>2014-10-10T15:50:05.000Z</updated>
+    <content type="html"><![CDATA[<p>I&#39;m currently working on a new library called <a href="http://github.com/neilellis/dollar" target="_blank" rel="external">Dollar</a> and I&#39;d like to share some thoughts about it. It is <strong>pre-alpha software</strong> which means it&#39;s really in a prototyping state and the interfaces are not fixed yet.</p>
+<p>If you like the ease of JavaScript, Ruby, Groovy etc. but also enjoy being able to work within the Java language then Dollar is for you. You can write typesafe code and then drop into typeless Dollar code whenever you need to. Dollar is both an alternative paradigm and a complementary resource.</p>
+<div class="alert alert-danger" role="alert">Everything you see in this blogpost is 100% Java, no matter what it might look like at first glance. I guarantee it&#39;s all perfectly valid Java.</div>
+
+<h1 id="show-me-the-code!">Show me the code!</h1><p>So let&#39;s create some JSON in Java:</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var profile = $(</div><div class="line">        $(<span class="string">"name"</span>, <span class="string">"Neil"</span>),</div><div class="line">        $(<span class="string">"age"</span>, <span class="keyword">new</span> Date().getYear() + <span class="number">1900</span> - <span class="number">1970</span>),</div><div class="line">        $(<span class="string">"gender"</span>, <span class="string">"male"</span>),</div><div class="line">        $(<span class="string">"projects"</span>, $jsonArray(<span class="string">"snapito"</span>, <span class="string">"dollar"</span>)),</div><div class="line">        $(<span class="string">"location"</span>,</div><div class="line">                $(<span class="string">"city"</span>, <span class="string">"brighton"</span>),</div><div class="line">                $(<span class="string">"postcode"</span>, <span class="string">"bn1 6jj"</span>),</div><div class="line">                $(<span class="string">"number"</span>, <span class="number">343</span>)</div><div class="line">        ));</div></pre></td></tr></table></figure>
+
+<p>As you can see, creating nested JSON data is incredibly easy.</p>
+<div class="alert alert-info" role="alert">
+You&#39;re probably wondering about <code>var profile</code> in the code above. <code>var</code> is the interface name of the dynamic typing systems. It was chosen to help the code read more like a dynamic language.
+</div>
+
+
+<p>And then we can query that JSON using Dollar, in much the same way you would in jQuery.</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">String name = profile.$(<span class="string">"name"</span>).$$();</div></pre></td></tr></table></figure>
+
+<p>Or we can do queries using JavaScript (Nashorn) expressions ($ means the current value).</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">profile.$(<span class="string">"$['age']/11"</span>).$<span class="keyword">int</span>()</div><div class="line">profile.$(<span class="string">"$.gender"</span>).$()</div></pre></td></tr></table></figure>
+
+<p>We can also create our objects from JSON Strings ...</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">"{\"name\":\"Dave\"}"</span>).$(<span class="string">"name"</span>).$$()</div></pre></td></tr></table></figure>
+
+<p>Lists ...</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">list = $list(<span class="string">"Neil"</span>, <span class="string">"Dimple"</span>, <span class="string">"Charlie"</span>);</div><div class="line">assertEquals(list, $list(<span class="string">"Neil"</span>).add(<span class="string">"Dimple"</span>).add(<span class="string">"Charlie"</span>));</div></pre></td></tr></table></figure>
+
+<p>Or maps ...</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Map map = <span class="keyword">new</span> HashMap();</div><div class="line">map.put(<span class="string">"foo"</span>, <span class="string">"bar"</span>);</div><div class="line">Map submap = <span class="keyword">new</span> HashMap();</div><div class="line">submap.put(<span class="string">"thing"</span>, <span class="number">1</span>);</div><div class="line">map.put(<span class="string">"sub"</span>, submap);</div><div class="line">assertEquals(<span class="number">1</span>, $(map).$(<span class="string">"sub"</span>).$map().get(<span class="string">"thing"</span>));</div></pre></td></tr></table></figure>
+
+<p>Dollar has built in support for being a webserver (using <a href="http://www.sparkjava.com/" target="_blank" rel="external">Spark</a>):</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Serve up the request headers as a JSON object under the /headers URL</span></div><div class="line">$GET(<span class="string">"/headers"</span>, (context) -&gt; context.headers());</div></pre></td></tr></table></figure>
+
+<p>And also supports queues:</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">profile.push(<span class="string">"test.profile"</span>);</div><div class="line">var deser = profile.pop(<span class="string">"test.profile"</span>, <span class="number">10</span> * <span class="number">1000</span>);</div></pre></td></tr></table></figure>
+
+<p>... persistence ...</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">assertTrue(profile.save(<span class="string">"test.profile.set"</span>).equals(profile));</div><div class="line">var deser = profile.load(<span class="string">"test.profile.set"</span>);</div><div class="line">Assert.assertEquals(deser.$$(), profile.$$());</div></pre></td></tr></table></figure>
+
+<p>... and pub/sub.</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">final</span> <span class="keyword">int</span>[] received = {<span class="number">0</span>};</div><div class="line">Sub sub = $sub((message) -&gt; {</div><div class="line">    received[<span class="number">0</span>]++;</div><div class="line">}, <span class="string">"test.pub"</span>);</div><div class="line">sub.await();</div><div class="line">profile.pub(<span class="string">"test.pub"</span>);</div><div class="line">Thread.sleep(<span class="number">100</span>);</div><div class="line">sub.cancel();</div><div class="line">assertEquals(<span class="number">1</span>, received[<span class="number">0</span>]);</div></pre></td></tr></table></figure>
+
+<p>Want to give it a spin, why not spin up and play with <a href="https://www.terminal.com/tiny/hMuBxSTEeF" target="_blank" rel="external">Dollar on Terminal.com</a></p>
+<a id="more"></a>
+
+
+<h1 id="it&#39;s-json-friendly">It&#39;s JSON Friendly</h1><p>Dollar can work with potentially any loosely typed data format, but the core features of Dollar revolve around a JSON centric world view. This means working with JSON, as you can see in the above examples, is very easy indeed.</p>
+<h1 id="loosely-typed">Loosely Typed</h1><p>Under the covers, just like JavaScript, we do have a type system. However it is a runtime type system with few restrictions. At compile time everything implements <code>var</code> - at runtime some operations will not be allowed.</p>
+<p><em>It is</em> possible for Dollar to support typing of <code>var</code>, however experience of this showed it added a lot of complexity back, even with type inference.</p>
+<h1 id="for-real-applications">For Real Applications</h1><p>Dollar is designed for production, it is designed for code you are going to have to fix, debug and monitor. Every library and language has it&#39;s sweet spot. Dollar&#39;s sweet spot is working with schema-less data in a production environment. It is not designed for high performance systems (there is a 99.9% chance your project isn&#39;t a high performance system) but there is no reason to expect it to be slow either. Where possible the code has been written with JVM optimization in mind.</p>
+<figure class="highlight Java"><figcaption><span>Dump the JVM wide system metrics, analytics etc.</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$dump();</div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight Java"><figcaption><span>Dump the current threads system metrics, analytics etc.</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$dumpThread();</div></pre></td></tr></table></figure>
+
+<h1 id="characteristics">Characteristics</h1><blockquote>
+<p>&quot;The secret of success is to be like a duck – smooth and unruffled on top, but paddling furiously underneath.&quot; - Anon</p>
+</blockquote>
+<ul>
+<li>Simple - Dollar does do not expose unnecessary complexity to the programmer, it keeps it hidden.</li>
+<li>Typeless - if you <em>need</em> strongly typed code stop reading now. If you&#39;re writing Internet-centric and modest-sized software this is unlikely to be the case.</li>
+<li>Synchronous - asynchronous flows are hard to follow and even harder to debug in production. Dollar does not expose asynchronous behaviour, where possible, to the programmer.</li>
+<li>Metered - key execution&#39;s are metered using Coda Hale&#39;s metrics library, this makes production monitoring and debugging easier.</li>
+<li>Nullsafe - special null type reduces null pointer exceptions, which can be replaced by an isNull() check.</li>
+<li>Threadsafe - no shared state, always copy on write. No shared state means avoidance of synchronization primitives, reduces memory leaks and generally leaves you feeling happier. It comes at a cost (object creation) but that cost is an acceptable cost as far as Dollar is concerned.</li>
+</ul>
+<h1 id="in-summary">In Summary</h1><p>If you&#39;re working with loosely typed data, especially JSON, in a Java environment then consider <a href="http://github.com/neilellis/dollar" target="_blank" rel="external">Dollar</a> as an option for your future projects. In the meantime, I&#39;d love feedback and suggestions.</p>
+<p>All the best
+Neil</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>I&#39;m currently working on a new library called <a href="http://github.com/neilellis/dollar" target="_blank" rel="external">Dollar</a> and I&#39;d like to share some thoughts about it. It is <strong>pre-alpha software</strong> which means it&#39;s really in a prototyping state and the interfaces are not fixed yet.</p>
+<p>If you like the ease of JavaScript, Ruby, Groovy etc. but also enjoy being able to work within the Java language then Dollar is for you. You can write typesafe code and then drop into typeless Dollar code whenever you need to. Dollar is both an alternative paradigm and a complementary resource.</p>
+<div class="alert alert-danger" role="alert">Everything you see in this blogpost is 100% Java, no matter what it might look like at first glance. I guarantee it&#39;s all perfectly valid Java.</div>
+
+<h1 id="show-me-the-code!">Show me the code!</h1><p>So let&#39;s create some JSON in Java:</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var profile = $(</div><div class="line">        $(<span class="string">"name"</span>, <span class="string">"Neil"</span>),</div><div class="line">        $(<span class="string">"age"</span>, <span class="keyword">new</span> Date().getYear() + <span class="number">1900</span> - <span class="number">1970</span>),</div><div class="line">        $(<span class="string">"gender"</span>, <span class="string">"male"</span>),</div><div class="line">        $(<span class="string">"projects"</span>, $jsonArray(<span class="string">"snapito"</span>, <span class="string">"dollar"</span>)),</div><div class="line">        $(<span class="string">"location"</span>,</div><div class="line">                $(<span class="string">"city"</span>, <span class="string">"brighton"</span>),</div><div class="line">                $(<span class="string">"postcode"</span>, <span class="string">"bn1 6jj"</span>),</div><div class="line">                $(<span class="string">"number"</span>, <span class="number">343</span>)</div><div class="line">        ));</div></pre></td></tr></table></figure>
+
+<p>As you can see, creating nested JSON data is incredibly easy.</p>
+<div class="alert alert-info" role="alert">
+You&#39;re probably wondering about <code>var profile</code> in the code above. <code>var</code> is the interface name of the dynamic typing systems. It was chosen to help the code read more like a dynamic language.
+</div>
+
+
+<p>And then we can query that JSON using Dollar, in much the same way you would in jQuery.</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">String name = profile.$(<span class="string">"name"</span>).$$();</div></pre></td></tr></table></figure>
+
+<p>Or we can do queries using JavaScript (Nashorn) expressions ($ means the current value).</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">profile.$(<span class="string">"$['age']/11"</span>).$<span class="keyword">int</span>()</div><div class="line">profile.$(<span class="string">"$.gender"</span>).$()</div></pre></td></tr></table></figure>
+
+<p>We can also create our objects from JSON Strings ...</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">"{\"name\":\"Dave\"}"</span>).$(<span class="string">"name"</span>).$$()</div></pre></td></tr></table></figure>
+
+<p>Lists ...</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">list = $list(<span class="string">"Neil"</span>, <span class="string">"Dimple"</span>, <span class="string">"Charlie"</span>);</div><div class="line">assertEquals(list, $list(<span class="string">"Neil"</span>).add(<span class="string">"Dimple"</span>).add(<span class="string">"Charlie"</span>));</div></pre></td></tr></table></figure>
+
+<p>Or maps ...</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Map map = <span class="keyword">new</span> HashMap();</div><div class="line">map.put(<span class="string">"foo"</span>, <span class="string">"bar"</span>);</div><div class="line">Map submap = <span class="keyword">new</span> HashMap();</div><div class="line">submap.put(<span class="string">"thing"</span>, <span class="number">1</span>);</div><div class="line">map.put(<span class="string">"sub"</span>, submap);</div><div class="line">assertEquals(<span class="number">1</span>, $(map).$(<span class="string">"sub"</span>).$map().get(<span class="string">"thing"</span>));</div></pre></td></tr></table></figure>
+
+<p>Dollar has built in support for being a webserver (using <a href="http://www.sparkjava.com/" target="_blank" rel="external">Spark</a>):</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Serve up the request headers as a JSON object under the /headers URL</span></div><div class="line">$GET(<span class="string">"/headers"</span>, (context) -&gt; context.headers());</div></pre></td></tr></table></figure>
+
+<p>And also supports queues:</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">profile.push(<span class="string">"test.profile"</span>);</div><div class="line">var deser = profile.pop(<span class="string">"test.profile"</span>, <span class="number">10</span> * <span class="number">1000</span>);</div></pre></td></tr></table></figure>
+
+<p>... persistence ...</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">assertTrue(profile.save(<span class="string">"test.profile.set"</span>).equals(profile));</div><div class="line">var deser = profile.load(<span class="string">"test.profile.set"</span>);</div><div class="line">Assert.assertEquals(deser.$$(), profile.$$());</div></pre></td></tr></table></figure>
+
+<p>... and pub/sub.</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">final</span> <span class="keyword">int</span>[] received = {<span class="number">0</span>};</div><div class="line">Sub sub = $sub((message) -&gt; {</div><div class="line">    received[<span class="number">0</span>]++;</div><div class="line">}, <span class="string">"test.pub"</span>);</div><div class="line">sub.await();</div><div class="line">profile.pub(<span class="string">"test.pub"</span>);</div><div class="line">Thread.sleep(<span class="number">100</span>);</div><div class="line">sub.cancel();</div><div class="line">assertEquals(<span class="number">1</span>, received[<span class="number">0</span>]);</div></pre></td></tr></table></figure>
+
+<p>Want to give it a spin, why not spin up and play with <a href="https://www.terminal.com/tiny/hMuBxSTEeF" target="_blank" rel="external">Dollar on Terminal.com</a></p>
+]]>
+    
+    </summary>
+    
+      <category term="dollar" scheme="https://neilellis.github.io/blog/tags/dollar/"/>
+    
+      <category term="java" scheme="https://neilellis.github.io/blog/tags/java/"/>
+    
+      <category term="spark" scheme="https://neilellis.github.io/blog/tags/spark/"/>
+    
+      <category term="redis" scheme="https://neilellis.github.io/blog/tags/redis/"/>
+    
+      <category term="json" scheme="https://neilellis.github.io/blog/tags/json/"/>
+    
+      <category term="dynamic" scheme="https://neilellis.github.io/blog/tags/dynamic/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[]]></title>
+    <link href="https://neilellis.github.io/blog/2014/10/10/codenames/"/>
+    <id>https://neilellis.github.io/blog/2014/10/10/codenames/</id>
+    <published>2014-10-10T15:50:05.000Z</published>
+    <updated>2014-10-10T15:50:05.000Z</updated>
+    <content type="html"><![CDATA[]]></content>
+    <summary type="html">
+    <![CDATA[]]>
+    </summary>
+    
+  </entry>
+  
+</feed>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Introducing Dollar | Neil Ellis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="I&#39;m currently working on a new library called Dollar and I&#39;d like to share some thoughts about it. It is pre-alpha software which means it&#39;s really in a prototyping state and the interface">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Introducing Dollar">
+<meta property="og:url" content="https://neilellis.github.io/blog/blog/2014/10/10/dollar/">
+<meta property="og:site_name" content="Neil Ellis">
+<meta property="og:description" content="I&#39;m currently working on a new library called Dollar and I&#39;d like to share some thoughts about it. It is pre-alpha software which means it&#39;s really in a prototyping state and the interface">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Introducing Dollar">
+<meta name="twitter:description" content="I&#39;m currently working on a new library called Dollar and I&#39;d like to share some thoughts about it. It is pre-alpha software which means it&#39;s really in a prototyping state and the interface">
+<meta name="twitter:creator" content="@neilellis">
+
+  
+    <link rel="alternative" href="/blog/atom.xml" title="Neil Ellis" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/blog/css/font-awesome.min.css" type="text/css">
+
+  <link rel="stylesheet" href="/blog/css/bootstrap.min.css" type="text/css">
+
+  <link rel="stylesheet" href="/blog/css/style.css" type="text/css">
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5432fc37524f0a59" async></script>
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="/blog/">Neil Ellis</a>
+    <div class="collapse navbar-collapse nav-menu">
+      <ul class="nav navbar-nav">
+      
+        <li>
+          <a href="/blog/archives">
+            <i class="fa fa-archive"></i>
+            Archives
+          </a>
+        </li>
+      
+        <li>
+          <a href="/blog/tags">
+            <i class="fa fa-tags"></i>
+            Tags
+          </a>
+        </li>
+      
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+          <li><a id="rss-link" href="/blog/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="clearfix"></div>
+
+      <div id='content' class="container">
+
+        <div class="page-header-wrapper">
+          <!--[if lt IE 9]><div class="alert alert-warning alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>提示:</strong>您的浏览器版本太低了,建议升级到 <strong><a href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie" title="IE9">IE9</a></strong> 以上,本站使用<a href="https://www.google.com/intl/zh-CN/chrome/">Chrome浏览器</a>可以获得最好的显示效果.</div><![endif]-->
+          <div class="page-header">
+            <h1 class="title">
+          
+            Introducing Dollar
+          
+            </h1>
+        </div>
+      </div>
+      
+      <section id="main"
+        
+      ><article id="post-dmoord2z4pdw2jb6" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc"><span class="toc-header">Contents</span><ol class="article-toc"><li class="article-toc-item article-toc-level-1"><a class="article-toc-link" href="#show-me-the-code!"><span class="article-toc-text">Show me the code!</span></a></li><li class="article-toc-item article-toc-level-1"><a class="article-toc-link" href="#it's-json-friendly"><span class="article-toc-text">It's JSON Friendly</span></a></li><li class="article-toc-item article-toc-level-1"><a class="article-toc-link" href="#loosely-typed"><span class="article-toc-text">Loosely Typed</span></a></li><li class="article-toc-item article-toc-level-1"><a class="article-toc-link" href="#for-real-applications"><span class="article-toc-text">For Real Applications</span></a></li><li class="article-toc-item article-toc-level-1"><a class="article-toc-link" href="#characteristics"><span class="article-toc-text">Characteristics</span></a></li><li class="article-toc-item article-toc-level-1"><a class="article-toc-link" href="#in-summary"><span class="article-toc-text">In Summary</span></a></li></ol></div><p>I&#39;m currently working on a new library called <a href="http://github.com/neilellis/dollar" target="_blank" rel="external">Dollar</a> and I&#39;d like to share some thoughts about it. It is <strong>pre-alpha software</strong> which means it&#39;s really in a prototyping state and the interfaces are not fixed yet.</p>
+<p>If you like the ease of JavaScript, Ruby, Groovy etc. but also enjoy being able to work within the Java language then Dollar is for you. You can write typesafe code and then drop into typeless Dollar code whenever you need to. Dollar is both an alternative paradigm and a complementary resource.</p>
+<div class="alert alert-danger" role="alert">Everything you see in this blogpost is 100% Java, no matter what it might look like at first glance. I guarantee it&#39;s all perfectly valid Java.</div>
+
+<h1 id="show-me-the-code!">Show me the code!</h1><p>So let&#39;s create some JSON in Java:</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var profile = $(</div><div class="line">        $(<span class="string">"name"</span>, <span class="string">"Neil"</span>),</div><div class="line">        $(<span class="string">"age"</span>, <span class="keyword">new</span> Date().getYear() + <span class="number">1900</span> - <span class="number">1970</span>),</div><div class="line">        $(<span class="string">"gender"</span>, <span class="string">"male"</span>),</div><div class="line">        $(<span class="string">"projects"</span>, $jsonArray(<span class="string">"snapito"</span>, <span class="string">"dollar"</span>)),</div><div class="line">        $(<span class="string">"location"</span>,</div><div class="line">                $(<span class="string">"city"</span>, <span class="string">"brighton"</span>),</div><div class="line">                $(<span class="string">"postcode"</span>, <span class="string">"bn1 6jj"</span>),</div><div class="line">                $(<span class="string">"number"</span>, <span class="number">343</span>)</div><div class="line">        ));</div></pre></td></tr></table></figure>
+
+<p>As you can see, creating nested JSON data is incredibly easy.</p>
+<div class="alert alert-info" role="alert">
+You&#39;re probably wondering about <code>var profile</code> in the code above. <code>var</code> is the interface name of the dynamic typing systems. It was chosen to help the code read more like a dynamic language.
+</div>
+
+
+<p>And then we can query that JSON using Dollar, in much the same way you would in jQuery.</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">String name = profile.$(<span class="string">"name"</span>).$$();</div></pre></td></tr></table></figure>
+
+<p>Or we can do queries using JavaScript (Nashorn) expressions ($ means the current value).</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">profile.$(<span class="string">"$['age']/11"</span>).$<span class="keyword">int</span>()</div><div class="line">profile.$(<span class="string">"$.gender"</span>).$()</div></pre></td></tr></table></figure>
+
+<p>We can also create our objects from JSON Strings ...</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">"{\"name\":\"Dave\"}"</span>).$(<span class="string">"name"</span>).$$()</div></pre></td></tr></table></figure>
+
+<p>Lists ...</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">list = $list(<span class="string">"Neil"</span>, <span class="string">"Dimple"</span>, <span class="string">"Charlie"</span>);</div><div class="line">assertEquals(list, $list(<span class="string">"Neil"</span>).add(<span class="string">"Dimple"</span>).add(<span class="string">"Charlie"</span>));</div></pre></td></tr></table></figure>
+
+<p>Or maps ...</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Map map = <span class="keyword">new</span> HashMap();</div><div class="line">map.put(<span class="string">"foo"</span>, <span class="string">"bar"</span>);</div><div class="line">Map submap = <span class="keyword">new</span> HashMap();</div><div class="line">submap.put(<span class="string">"thing"</span>, <span class="number">1</span>);</div><div class="line">map.put(<span class="string">"sub"</span>, submap);</div><div class="line">assertEquals(<span class="number">1</span>, $(map).$(<span class="string">"sub"</span>).$map().get(<span class="string">"thing"</span>));</div></pre></td></tr></table></figure>
+
+<p>Dollar has built in support for being a webserver (using <a href="http://www.sparkjava.com/" target="_blank" rel="external">Spark</a>):</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Serve up the request headers as a JSON object under the /headers URL</span></div><div class="line">$GET(<span class="string">"/headers"</span>, (context) -&gt; context.headers());</div></pre></td></tr></table></figure>
+
+<p>And also supports queues:</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">profile.push(<span class="string">"test.profile"</span>);</div><div class="line">var deser = profile.pop(<span class="string">"test.profile"</span>, <span class="number">10</span> * <span class="number">1000</span>);</div></pre></td></tr></table></figure>
+
+<p>... persistence ...</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">assertTrue(profile.save(<span class="string">"test.profile.set"</span>).equals(profile));</div><div class="line">var deser = profile.load(<span class="string">"test.profile.set"</span>);</div><div class="line">Assert.assertEquals(deser.$$(), profile.$$());</div></pre></td></tr></table></figure>
+
+<p>... and pub/sub.</p>
+<figure class="highlight Java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">final</span> <span class="keyword">int</span>[] received = {<span class="number">0</span>};</div><div class="line">Sub sub = $sub((message) -&gt; {</div><div class="line">    received[<span class="number">0</span>]++;</div><div class="line">}, <span class="string">"test.pub"</span>);</div><div class="line">sub.await();</div><div class="line">profile.pub(<span class="string">"test.pub"</span>);</div><div class="line">Thread.sleep(<span class="number">100</span>);</div><div class="line">sub.cancel();</div><div class="line">assertEquals(<span class="number">1</span>, received[<span class="number">0</span>]);</div></pre></td></tr></table></figure>
+
+<p>Want to give it a spin, why not spin up and play with <a href="https://www.terminal.com/tiny/hMuBxSTEeF" target="_blank" rel="external">Dollar on Terminal.com</a></p>
+<a id="more"></a>
+
+
+<h1 id="it&#39;s-json-friendly">It&#39;s JSON Friendly</h1><p>Dollar can work with potentially any loosely typed data format, but the core features of Dollar revolve around a JSON centric world view. This means working with JSON, as you can see in the above examples, is very easy indeed.</p>
+<h1 id="loosely-typed">Loosely Typed</h1><p>Under the covers, just like JavaScript, we do have a type system. However it is a runtime type system with few restrictions. At compile time everything implements <code>var</code> - at runtime some operations will not be allowed.</p>
+<p><em>It is</em> possible for Dollar to support typing of <code>var</code>, however experience of this showed it added a lot of complexity back, even with type inference.</p>
+<h1 id="for-real-applications">For Real Applications</h1><p>Dollar is designed for production, it is designed for code you are going to have to fix, debug and monitor. Every library and language has it&#39;s sweet spot. Dollar&#39;s sweet spot is working with schema-less data in a production environment. It is not designed for high performance systems (there is a 99.9% chance your project isn&#39;t a high performance system) but there is no reason to expect it to be slow either. Where possible the code has been written with JVM optimization in mind.</p>
+<figure class="highlight Java"><figcaption><span>Dump the JVM wide system metrics, analytics etc.</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$dump();</div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight Java"><figcaption><span>Dump the current threads system metrics, analytics etc.</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$dumpThread();</div></pre></td></tr></table></figure>
+
+<h1 id="characteristics">Characteristics</h1><blockquote>
+<p>&quot;The secret of success is to be like a duck – smooth and unruffled on top, but paddling furiously underneath.&quot; - Anon</p>
+</blockquote>
+<ul>
+<li>Simple - Dollar does do not expose unnecessary complexity to the programmer, it keeps it hidden.</li>
+<li>Typeless - if you <em>need</em> strongly typed code stop reading now. If you&#39;re writing Internet-centric and modest-sized software this is unlikely to be the case.</li>
+<li>Synchronous - asynchronous flows are hard to follow and even harder to debug in production. Dollar does not expose asynchronous behaviour, where possible, to the programmer.</li>
+<li>Metered - key execution&#39;s are metered using Coda Hale&#39;s metrics library, this makes production monitoring and debugging easier.</li>
+<li>Nullsafe - special null type reduces null pointer exceptions, which can be replaced by an isNull() check.</li>
+<li>Threadsafe - no shared state, always copy on write. No shared state means avoidance of synchronization primitives, reduces memory leaks and generally leaves you feeling happier. It comes at a cost (object creation) but that cost is an acceptable cost as far as Dollar is concerned.</li>
+</ul>
+<h1 id="in-summary">In Summary</h1><p>If you&#39;re working with loosely typed data, especially JSON, in a Java environment then consider <a href="http://github.com/neilellis/dollar" target="_blank" rel="external">Dollar</a> as an option for your future projects. In the meantime, I&#39;d love feedback and suggestions.</p>
+<p>All the best
+Neil</p>
+
+      
+    </div>
+  </div>
+</article>
+
+
+
+
+<div style="margin-top:4px;margin-left:20px;text-align:center;" class="addthis_sharing_toolbox" data-url="https://neilellis.github.io/blog/2014/10/10/dollar/" data-id="dmoord2z4pdw2jb6" data-title="Introducing Dollar"
+     data-summary="I&#39;m currently working on a new library called Dollar and I&#39;d like to share some thoughts about it. It is pre-alpha software which means it&#39;s really ..." class="article-share-link"></div>
+
+<section id="comments">
+    <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+</section>
+        
+          
+<aside id="sidebar">
+  
+    
+      
+<div class="widget-wrap center">
+  <ul class="pagination">
+    <li>
+      
+        <span class="nav-prev disabled">Prev</span>
+      
+    </li>
+    <li>
+      <a data-url="https://neilellis.github.io/blog/2014/10/10/dollar/" data-id="dmoord2z4pdw2jb6" data_title="Introducing Dollar"
+        data_summary="I&#39;m currently working on a new library called Dollar and I&#39;d like to share some thoughts about it. It is pre-alpha software which means it&#39;s really ..." class="article-share-link">Share</a>
+    </li>
+    <li>
+      
+        <a href="/blog/2014/10/10/codenames/" class="nav-next">Next</a>
+      
+    </li>
+  </ul>
+</div>
+
+
+    
+      <div class="widget-wrap">
+  <div class="post-widget">
+    <i class="fa fa-clock-o"></i>
+    <time datetime="2014-10-10T15:50:05.000Z" itemprop="datePublished">Oct 10 2014</time>
+  </div>
+</div>
+
+    
+      
+  <div class="widget-wrap">
+    <div class="post-widget">
+      <i class="fa fa-folder"></i>
+      
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="post-widget">
+      <i class="fa fa-tags"></i>
+      <a class="tag-link" href="/blog/tags/dollar/">dollar<span class="tag-count">1</span></a><a class="tag-link" href="/blog/tags/dynamic/">dynamic<span class="tag-count">1</span></a><a class="tag-link" href="/blog/tags/java/">java<span class="tag-count">1</span></a><a class="tag-link" href="/blog/tags/json/">json<span class="tag-count">1</span></a><a class="tag-link" href="/blog/tags/redis/">redis<span class="tag-count">1</span></a><a class="tag-link" href="/blog/tags/spark/">spark<span class="tag-count">1</span></a>
+    </div>
+  </div>
+
+
+    
+  
+</aside>
+
+
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer container">
+    <div id="footer-info" class="inner">
+      <a href="/blog/">Neil Ellis</a> &copy; 2014 Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and Theme by <a href="https://github.com/seff/nut" target="_blank">Nut</a>
+    </div>
+  </div>
+</footer>
+<a id="gotop" href="#">
+  <i class="fa fa-chevron-up"></i>
+</a>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="[object Object]" class="mobile-nav-link">0</a>
+  
+    <a href="[object Object]" class="mobile-nav-link">1</a>
+  
+</nav>
+
+    
+<script>
+  var disqus_shortname = 'cazcade';
+  
+  var disqus_url = 'https://neilellis.github.io/blog/2014/10/10/dollar/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//go.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+<script src="/blog/js/jquery.fitvids.js" type="text/javascript"></script>
+
+<script src="/blog/js/bootstrap.min.js" type="text/javascript"></script>
+
+<script src="/blog/js/script.js" type="text/javascript"></script>
+
+
+  </div>
+</body>
+</html>
